@@ -385,7 +385,12 @@ func (t *dbTables) getCondSQL(cond *Condition, sub bool, tz *time.Location) (whe
 			leftCol := fmt.Sprintf("%s.%s%s%s", index, Q, fi.column, Q)
 			t.base.GenerateOperatorLeftCol(fi, operator, &leftCol)
 
-			where += fmt.Sprintf("%s %s ", leftCol, operSQL)
+			if strings.Contains(operSQL, " & ? ") {
+				where += (" (" + leftCol + operSQL + ") > 0 ")
+			} else {
+				where += fmt.Sprintf("%s %s ", leftCol, operSQL)
+			}
+
 			params = append(params, args...)
 
 		}

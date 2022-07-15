@@ -40,6 +40,7 @@ var mysqlOperators = map[string]string{
 	"endswith":    "LIKE BINARY ?",
 	"istartswith": "LIKE ?",
 	"iendswith":   "LIKE ?",
+	"bit":         " & ? ",
 }
 
 // mysql column field types.
